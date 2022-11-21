@@ -15,7 +15,7 @@ function Login({ value, setToken }) {
     console.log(data);
     axios
       .post(
-        "http://localhost:81/api/login",
+        " http://192.168.0.153/api/login",
         {
           username: data.username,
           password: data.password,
@@ -51,7 +51,7 @@ function Login({ value, setToken }) {
               name="username"
               render={({ field: { onChange, onBlur, value, ref } }) => (
                 <Input
-                  defaultValue={"proxolab"}
+                  defaultValue={"burak.turken"}
                   onChange={onChange}
                   onBlur={onBlur}
                   selected={value}
@@ -67,7 +67,7 @@ function Login({ value, setToken }) {
               render={({ field: { onChange, onBlur, value, ref } }) => (
                 <Input
                   type=""
-                  defaultValue={"jas34Qsd56Q03fj3yH@"}
+                  defaultValue={"as4gbFwsDS@"}
                   onChange={onChange}
                   onBlur={onBlur}
                   selected={value}

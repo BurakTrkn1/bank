@@ -18,16 +18,17 @@ import {
   CardTitle,
   Input,
 } from "reactstrap";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 // import Tab from "react-bootstrap/Tab";
 // import Tabs from "react-bootstrap";
 import { Tab, Tabs } from "react-bootstrap";
 import axios from "axios";
-function Calculation({setError,token,setDatas}) {
+function Calculation({ setError, token, setDatas }) {
+  const [selectcreditype, setSelectcredittype] = useState(1);
 
   const getBanks = () => {
     axios
-      .get("http://localhost:81/api/banks/id", {
+      .get("http://192.168.0.153/api/banks/id", {
         headers: {
           Authorization: token,
         },
@@ -42,73 +43,97 @@ function Calculation({setError,token,setDatas}) {
   };
   useEffect(() => {
     token = localStorage.getItem("token");
-    console.log("1");
     setError("");
     getBanks();
   }, []);
   const navigate = useNavigate();
   const [key, setKey] = useState("");
+  const [vade, setVade] = useState(
+    selectcreditype.type === 1
+      ? [
+          { val: "5Yıl", key: "6" },
+          { val: "10Yıl", key: "7" },
+        ]
+      : selectcreditype.type === 2
+      ? [
+          { val: "12Ay", key: "3" },
+          { val: "24Ay", key: "4" },
+          { val: "36Ay", key: "5" },
+        ]
+      : []
+  );
+
+  const changeselect = (event) => {
+    setSelectcredittype(event.target.value);
+    console.log(event.target.value);
+    setVade(
+      event.target.value === "Konut"
+        ? [
+            { val: "5Yıl", key: "6" },
+            { val: "10Yıl", key: "7" },
+          ]
+        : event.target.value === "Tüketici"
+        ? [
+            { val: "12Ay", key: "3" },
+            { val: "24Ay", key: "4" },
+            { val: "36Ay", key: "5" },
+          ]
+        : []
+    );
+  };
+
   return (
     <div id="Depo">
       <div id="Creditinterest">
-        <div>
-          
-        </div>
+        <div></div>
         <Tabs
           id="controlled-tab-example"
           activeKey={key}
           onSelect={(k) => setKey(k)}
           className="mb-3"
         >
-              <Tab eventKey="home" title="Credit interest">
+          <Tab eventKey="home" title="Credit interest">
             <Row>
               <Col>
-              <div className="credit">
-              <div id="fin">
-            <Button type="button">Find</Button>
-              
-            </div>
-            <div className="yt">
-            <Input type="number"></Input>
-              
-            </div>
-              <div className="selec">
-              <Input
-              className="selec"
-              type="select"
-              name="select"
-              id="exampleSelect"
-              // onChange={(event) => changeselect(event)}
-            >
-              <option value="Tür seç">vade seç</option>
-              <option id="1">3</option>
-              <option id="2">6</option>
-              <option id="3">12</option>
-
-            </Input>
-              </div>
-              <div className="va">
-        
-               <Input
-              className="selec"
-              type="select"
-              name="select"
-              id="exampleSelect"
-              // onChange={(event) => changeselect(event)}
-            >
-              <option value="Tür seç">Kredi Seç</option>
-              <option id="1">Konut</option>
-              <option id="2">Tüketici</option>
-            </Input>
-            </div>
-           
-          
-
-              </div>
+                <div className="credit">
+                  <div id="fin">
+                    <Button type="button">Find</Button>
+                  </div>
+                  <div className="yt">
+                    <Input type="number"></Input>
+                  </div>
+                  <div className="selec">
+                    <Input
+                      className="selec"
+                      type="select"
+                      name="select"
+                      id="exampleSelect"
+                    >
+                      {vade.map((value, ind) => {
+                        return (
+                          <option value={value.key} key={ind}>
+                            {value.val}
+                          </option>
+                        );
+                      })}
+                    </Input>
+                  </div>
+                  <div className="va">
+                    <Input
+                      className="selec"
+                      type="select"
+                      name="select"
+                      id="exampleSelect"
+                      onChange={(event) => changeselect(event)}
+                    >
+                      <option value="Tür seç">Kredi Seç</option>
+                      <option id="1">Konut</option>
+                      <option id="2">Tüketici</option>
+                    </Input>
+                  </div>
+                </div>
               </Col>
             </Row>
-              
-        
           </Tab>
           <Tab eventKey="profile" title="Deposit interest">
             <div className="deposit">

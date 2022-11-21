@@ -18,7 +18,7 @@ function Modals({ datas, setDatas, modal, setModal, error, setError, token }) {
 
   const getBanks = () => {
     axios
-      .get("http://localhost:81/api/banks", {
+      .get(" http://192.168.0.153/api/banks", {
         headers: {
           Authorization: token,
         },
@@ -37,7 +37,7 @@ function Modals({ datas, setDatas, modal, setModal, error, setError, token }) {
     // console.log(JSON.stringify(localStorage.getItem("token")));
     axios
       .post(
-        "  http://localhost:81/api/banks",
+        "   http://192.168.0.153/api/banks",
         {
           bank_name: data.banks,
         },

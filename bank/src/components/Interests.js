@@ -4,7 +4,6 @@ import { Input, Button } from "reactstrap";
 import axios from "axios";
 import "../../src/App.css";
 
-
 function İnterests({
   item,
   datas,
@@ -13,26 +12,37 @@ function İnterests({
   token,
   setİnterest,
   setError,
-  setFaiz
+  setFaiz,
+  setDatas,
+  faiz,
+  faizVal,
 }) {
   const [selectcreditype, setSelectcredittype] = useState(1);
-  const [num,setNum]=useState("");
-  const number=(e)=>{
-   setNum(e.target.value)
-   parseInt(num)
-   console.log(num)
- }
+  const [text, setText] = useState({
+    interes: "",
+    vades: "",
+  });
+  console.log(token);
+  const [num, setNum] = useState("");
+  const number = (e) => {
+    setNum(e.target.value);
+    parseInt(num);
+    console.log(num);
+  };
+  console.log(item);
+  console.log(text.vades);
   const save = () => {
-   
-    
+    console.log({
+      faiz,
+    });
     axios
       .post(
-        "  http://localhost:81/api/interests",
+        "   http://192.168.0.153/api/interests",
         {
-             bank_id: item.bank_id,
-            interest: num,
-              time_option: "",
-             credit_type: vade.credit_type,
+          bank_id: faizVal.bank_id,
+          interest: parseFloat(text.interes),
+          credit_type: parseInt(selectcreditype),
+          time_option: parseInt(text.vades),
         },
         {
           headers: {
@@ -41,16 +51,33 @@ function İnterests({
         }
       )
       .then((res) => {
-        console.log("2");
-        console.log(num)
         console.log(res);
-        setİnterest(res.data.data);
+        // setText()
         getBanks();
       })
       .catch((err) => {
         console.log(err);
       });
   };
+  const intdelete = () => {
+    axios
+      .delete("   http://192.168.0.153/api/interests", {
+        headers: {
+          Authorization: token,
+        },
+      })
+      .then((res) => {
+        console.log("2");
+        console.log(num);
+        console.log(res);
+        setDatas(res.data.data);
+        getBanks();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const [vade, setVade] = useState(
     selectcreditype.type === 1
       ? [
@@ -72,7 +99,13 @@ function İnterests({
       : []
   );
   const changeselect = (event) => {
-    setSelectcredittype(event.target.value);
+    setSelectcredittype(
+      event.target.value === "Konut"
+        ? 1
+        : event.target.value === "Tüketici"
+        ? 2
+        : 3
+    );
     console.log(event.target.value);
     setVade(
       event.target.value === "Konut"
@@ -99,64 +132,80 @@ function İnterests({
     <div>
       {" "}
       <div className="row">
-      <tr>
-        <td>
-          <Input
-            className="selec"
-            type="select"
-            name="select"
-            id="exampleSelect"
-            onChange={(event) => changeselect(event)}
-          >
-            <option value="Tür seç">Tür seç</option>
-            <option id="1">Konut</option>
-            <option id="2">Tüketici</option>
-            <option id="3">Mevduat</option>
-          </Input>
-        </td>
-        <td>
-          <Input
-            type="select"
-            name="select"
-            id="exampleSelect"
-            className="selects"
-          >
-            {vade.map((value, ind) => {
-              return (
-                <option value={value.key} key={ind}>
-                  {value.val}
-                </option>
-              );
-            })}
-          </Input>
-        </td>
-        <td>
-          <Input id="Faiz" type="number" onChange={number}></Input>
-        </td>
-        <td>
-          <Button
-            type="button"
-            color="primary"
-            className="save"
-            onClick={()=>save()}
-          >
-            Save
-          </Button>
-          <Button type="button" color="warning">
-            Delete
-          </Button>
-        </td>
-      </tr>
+        <tr>
+          <td>
+            <Input
+              className="selec"
+              type="select"
+              name="select"
+              id="exampleSelect"
+              onChange={(event) => changeselect(event)}
+            >
+              <option value="Tür seç">Tür seç</option>
+              <option id="1">Konut</option>
+              <option id="2">Tüketici</option>
+              <option id="3">Mevduat</option>
+            </Input>
+          </td>
+          <td>
+            <Input
+              type="select"
+              name="select"
+              id="exampleSelect"
+              className="selects"
+              onChange={(e) =>
+                setText((prev) => ({
+                  ...prev,
+                  vades: e.target.value,
+                }))
+              }
+            >
+              {vade.map((value, ind) => {
+                return (
+                  <option value={value.key} key={ind}>
+                    {value.val}
+                  </option>
+                );
+              })}
+            </Input>
+          </td>
+          <td>
+            <Input
+              id="Faiz"
+              type="number"
+              defaultValue={text.interes}
+              placeholder="Faiz Oranı Giriniz"
+              onChange={(e) =>
+                setText((prev) => ({
+                  ...prev,
+                  interes: e.target.value,
+                }))
+              }
+            ></Input>
+          </td>
+          <td>
+            <Button
+              type="button"
+              color="primary"
+              className="save"
+              onClick={() => save()}
+            >
+              Saveeee
+            </Button>
+            <Button type="button" color="warning" onClick={() => intdelete()}>
+              Delete
+            </Button>
+          </td>
+        </tr>
       </div>
-     
     </div>
   );
 }
 
 export default İnterests;
- // setFaiz((prew)=>[...prew,{
-    //   id:null,
-    //   bank_id: item.bank_id,
-    //   interest: "",
-    //   time_option: 0,
-    //   credit_type: 0,
+// setFaiz((prew)=>[...prew,{
+//   id:null,
+//   bank_id: item.bank_id,
+//   interest: "",
+//   time_option: 0,
+//   credit_type: 0,
