@@ -17,6 +17,7 @@ function İnterests({
   faiz,
   faizVal,
 }) {
+  console.log(token)
   const [selectcreditype, setSelectcredittype] = useState(1);
   const [text, setText] = useState({
     interes: "",
@@ -24,20 +25,23 @@ function İnterests({
   });
   console.log(token);
   const [num, setNum] = useState("");
-  const number = (e) => {
-    setNum(e.target.value);
-    parseInt(num);
-    console.log(num);
-  };
+  // const number = (e) => {
+  //   setNum(e.target.value);
+  //   parseInt(num);
+  //   console.log(num);
+  // };
   console.log(item);
   console.log(text.vades);
   const save = () => {
     console.log({
-      faiz,
+      bank_id: faizVal.bank_id,
+      interest: parseFloat(text.interes),
+      credit_type: parseInt(selectcreditype),
+      time_option: parseInt(text.vades),
     });
     axios
       .post(
-        "   http://192.168.0.153/api/interests",
+        "   http://localhost:81/api/interests",
         {
           bank_id: faizVal.bank_id,
           interest: parseFloat(text.interes),
@@ -52,7 +56,7 @@ function İnterests({
       )
       .then((res) => {
         console.log(res);
-        // setText()
+        
         getBanks();
       })
       .catch((err) => {
@@ -61,16 +65,13 @@ function İnterests({
   };
   const intdelete = () => {
     axios
-      .delete("   http://192.168.0.153/api/interests", {
+      .delete("   http://localhost:81/api/interests", {
         headers: {
           Authorization: token,
         },
       })
       .then((res) => {
-        console.log("2");
-        console.log(num);
         console.log(res);
-        setDatas(res.data.data);
         getBanks();
       })
       .catch((err) => {
@@ -149,6 +150,7 @@ function İnterests({
           </td>
           <td>
             <Input
+            defaultValue={text.vades}
               type="select"
               name="select"
               id="exampleSelect"

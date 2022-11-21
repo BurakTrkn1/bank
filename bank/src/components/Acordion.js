@@ -27,9 +27,11 @@ function Acordion({
   const [bank, setBank] = useState([]);
   const [faiz, setFaiz] = useState(item.interests);
   // const [select]
+  console.log(item.interest)
+  console.log(faiz)
   const getBanks = () => {
     axios
-      .get("  http://192.168.0.53/api/banks", {
+      .get("  http://localhost:81/api/banks", {
         headers: {
           Authorization: token,
         },
@@ -43,7 +45,7 @@ function Acordion({
   };
   const banksdelete = (id) => {
     axios
-      .delete("  http://192.168.0.153/api/banks", {
+      .delete("  http://localhost:81/api/banks", {
         headers: {
           Authorization: token,
         },

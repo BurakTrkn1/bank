@@ -17,6 +17,7 @@ import {
   CardText,
   CardTitle,
   Input,
+  CardSubtitle
 } from "reactstrap";
 import React, { useState, useEffect } from "react";
 // import Tab from "react-bootstrap/Tab";
@@ -28,7 +29,7 @@ function Calculation({ setError, token, setDatas }) {
 
   const getBanks = () => {
     axios
-      .get("http://192.168.0.153/api/banks/id", {
+      .get("http://localhost:81/api/banks/id", {
         headers: {
           Authorization: token,
         },
@@ -84,7 +85,9 @@ function Calculation({ setError, token, setDatas }) {
 
   return (
     <div id="Depo">
+   
       <div id="Creditinterest">
+        
         <div></div>
         <Tabs
           id="controlled-tab-example"
@@ -92,6 +95,7 @@ function Calculation({ setError, token, setDatas }) {
           onSelect={(k) => setKey(k)}
           className="mb-3"
         >
+          
           <Tab eventKey="home" title="Credit interest">
             <Row>
               <Col>
@@ -109,6 +113,30 @@ function Calculation({ setError, token, setDatas }) {
                       name="select"
                       id="exampleSelect"
                     >
+                         <Card
+  style={{
+    width: '18rem'
+  }}
+>
+  
+  <CardBody>
+    <CardTitle tag="h5">
+      Card title
+    </CardTitle>
+    <CardSubtitle
+      className="mb-2 text-muted"
+      tag="h6"
+    >
+      Card subtitle
+    </CardSubtitle>
+    <CardText>
+      Some quick example text to build on the card title and make up the bulk of the card‘s content.
+    </CardText>
+    <Button>
+      Button
+    </Button>
+  </CardBody>
+</Card>
                       {vade.map((value, ind) => {
                         return (
                           <option value={value.key} key={ind}>
@@ -117,6 +145,7 @@ function Calculation({ setError, token, setDatas }) {
                         );
                       })}
                     </Input>
+                    
                   </div>
                   <div className="va">
                     <Input
@@ -163,6 +192,7 @@ function Calculation({ setError, token, setDatas }) {
               </Row>
             </div>
           </Tab>
+          
         </Tabs>
       </div>
     </div>

@@ -41,7 +41,7 @@ function Banks({
   };
   const getBanks = () => {
     axios
-      .get(" http://192.168.0.153/api/banks", {
+      .get(" http://localhost:81/api/banks", {
         headers: {
           Authorization: token,
         },
