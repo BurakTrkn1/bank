@@ -1,0 +1,228 @@
+.App {
+  text-align: center;
+
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+#set{
+  align-items: center;
+  text-align: left;
+  width: 350px;
+  margin: 20%;
+  margin-left: 32%;
+  
+}
+
+.Log{
+  float: right;
+  margin-right: 20px;
+}
+#login{
+  background-image: url("https://iasbh.tmgrup.com.tr/23b1a6/0/0/0/0/0/0?u=https://isbh.tmgrup.com.tr/sb/album/2020/09/21/nasadan-mavi-dolunay-aciklamasi-mavi-dolunay-nedir-ne-zaman-ve-saat-kacta-gerceklesecek-turkiyede-izlenecek-mi-1600675083585.jpg&l=1");
+  background-repeat: no-repeat;
+  background-size: 67rem;
+  border: 1px solid;
+  margin: 145px;
+}
+label{
+  color:  whitesmoke;
+}
+#lgn{
+  margin-top: 20px;
+}
+#add{
+  float: left;
+  margin-left: 10px;
+
+}
+
+#acordion{
+  margin-top: 10px;
+}
+#Faiz{
+ width: 280px;
+ float: right;
+}
+.save{
+  margin-right: 20px;
+}
+
+#Hom{
+  margin-left: 10px;
+  float: left;
+}
+#Hes{
+  float: left;
+  margin-left: 10px;
+  }
+  
+#Home{
+background-image: url("https://c.wallhere.com/photos/0b/d3/psychedelic_deer_blue_Moon_fantasy_art-1320815.jpg!d");
+background-size: cover;
+background-position: center;
+min-height: 789px;
+/* background-repeat: no-repeat;
+background-size: 65rem;
+margin: 500px;
+width: 5rem;
+            padding: 500px;
+            position: absolute;
+            top: 20%;
+            left: 15%;
+            margin-left: -5px;
+            margin-top: -70px; */
+  }
+  .error{
+    color: red;
+  }
+  #back{
+    background-image: url("https://c.wallhere.com/photos/0b/d3/psychedelic_deer_blue_Moon_fantasy_art-1320815.jpg!d");
+background-size: cover;
+background-position: center;
+min-height: 789px;
+  }
+  #CALC{
+    background-image: url("https://c.wallhere.com/photos/0b/d3/psychedelic_deer_blue_Moon_fantasy_art-1320815.jpg!d");
+    background-size: cover;
+    background-position: center;
+    min-height: 789px;
+  }
+  #Creditinterest{
+    display: block;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    appearance: none;
+    border-radius: 0.375rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    background-color: none;
+    position: absolute;
+     top: 20%;
+    left: 5%;
+   margin-left: -3px;
+            margin-top: -70px; 
+  }
+ 
+  #modaltitle{
+   color: black;
+  }
+  
+   
+  #creditinst{
+    background-image: url("https://c.wallhere.com/photos/0b/d3/psychedelic_deer_blue_Moon_fantasy_art-1320815.jpg!d");
+    background-size: cover;
+    background-position: center;
+    min-height: 789px;
+  }
+  #Depo{
+    background-image: url("https://c.wallhere.com/photos/0b/d3/psychedelic_deer_blue_Moon_fantasy_art-1320815.jpg!d");
+    background-size: cover;
+    background-position: center;
+    min-height: 789px;
+  }
+  #Yat{
+   float: right;
+    align-items: center;
+    text-align: center;
+    justify-content: space-around;
+    width: 10rem;
+    margin-left: 20px;
+
+  }
+  .vad{
+    float: right;
+    align-items: center;
+    text-align: center;
+    justify-content: space-around;
+    width: 10rem;
+  }
+  #find{
+    float: right;
+    align-items: center;
+    text-align: center;
+    justify-content: space-around;
+    width: 6rem;
+
+  }
+  .deposit{
+    margin-left: 30rem;
+  }
+  /* credit */
+  .credit{
+    margin-left: 25rem;
+
+  }
+  .selec{
+    float: right;
+    align-items: center;
+    text-align: center;
+    justify-content: space-around;
+    width: 10rem;
+    margin-left: 10px;
+
+  }
+  selects{
+    width: 20rem;
+  }
+  .yt{
+    float: right;
+    align-items: center;
+    text-align: center;
+    justify-content: space-around;
+    width: 10rem;
+    margin-left: 20px;
+  }
+  #fin{
+    float: right;
+    align-items: center;
+    text-align: center;
+    justify-content: space-around;
+    width: 6rem;
+  }
+  .va{
+    float: right;
+    align-items: center;
+    text-align: center;
+    justify-content: space-around;
+    width: 10rem;
+  }
+  .row{
+    float: right;
+  }
+  #credacor{
+    margin: 14rem;
+    width: 50rem;
+  }
