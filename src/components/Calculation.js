@@ -34,14 +34,17 @@ function Calculation({ setError, token, setDatas }) {
   };
   const getBanks = () => {
     axios
-      .get("http://192.168.0.153/api/banks/id", {
+      .get("http://localhost:81/api/banks", {
         headers: {
           Authorization: token,
         },
       })
       .then((res) => {
-        setFind(res.data.data);
-        console.log("2");
+        if(selectcreditype==="Konut"){
+          
+        }
+        // setFind(res.data.data);
+        console.log(res.data.data)
       })
       .catch((err) => {
         console.log(err);
@@ -52,6 +55,9 @@ function Calculation({ setError, token, setDatas }) {
     setError("");
     getBanks();
   }, []);
+  const findbank=()=>{
+getBanks();
+  }
   const navigate = useNavigate();
   const [key, setKey] = useState("");
   const [vade, setVade] = useState(
@@ -103,7 +109,7 @@ function Calculation({ setError, token, setDatas }) {
               <Col>
                 <div className="credit">
                   <div id="fin">
-                    <Button type="button">Find</Button>
+                    <Button type="button" onClick={()=> findbank()}>Find</Button>
                   </div>
                   <div className="yt">
                     <Input type="number"></Input>
@@ -114,7 +120,16 @@ function Calculation({ setError, token, setDatas }) {
                       type="select"
                       name="select"
                       id="exampleSelect"
-                    ></Input>
+                      
+                    >
+                      {vade.map((value, ind) => {
+                return (
+                  <option value={value.key} key={ind}>
+                    {value.val}
+                  </option>
+                );
+              })}
+                    </Input>
                   </div>
 
                   <div className="va">
@@ -128,7 +143,10 @@ function Calculation({ setError, token, setDatas }) {
                       <option value="Tür seç">Kredi Seç</option>
                       <option id="1">Konut</option>
                       <option id="2">Tüketici</option>
+
+               
                     </Input>
+                   
                   </div>
                 </div>
               </Col>
@@ -163,14 +181,17 @@ function Calculation({ setError, token, setDatas }) {
             </div>
           </Tab>
         </Tabs>
-        <div id="credacor">
-          <Accordion open={open} toggle={toggle}>
-            <AccordionItem>
-              <AccordionHeader targetId="1"></AccordionHeader>
-              <AccordionBody accordionId="1"></AccordionBody>
-            </AccordionItem>
-          </Accordion>
-        </div>
+        {find.map((val)=>{
+ <div id="credacor">
+ <Accordion open={open} toggle={toggle}>
+   <AccordionItem>
+     <AccordionHeader targetId="1"></AccordionHeader>
+     <AccordionBody accordionId="1"></AccordionBody>
+   </AccordionItem>
+ </Accordion>
+</div>
+        })}
+       
       </div>
     </div>
   );

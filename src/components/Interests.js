@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Input, Button } from "reactstrap";
 import axios from "axios";
@@ -25,25 +25,49 @@ function İnterests({
     vades: "",
   });
   console.log(token);
-  const [num, setNum] = useState("");
-  // const number = (e) => {
-  //   setNum(e.target.value);
-  //   parseInt(num);
-  //   console.log(num);
-  // };
+  
   console.log(item);
+  console.log(item.interests);
+
+  
   console.log(text.vades);
+  useEffect(() => {
+  }, [item.interests]);
   const save = () => {
+ 
+ 
     console.log({
+ 
       bank_id: faizVal.bank_id,
       interest: parseFloat(text.interes),
       credit_type: parseInt(selectcreditype),
       time_option: parseInt(text.vades),
     });
+   
+   
+   
+    const getInteres=()=>{
+      axios
+  .get(
+    "   http://localhost:81/api/interests",
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  )
+  .then((res) => {
+    console.log(res.data.data);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
+    }
+  
     axios
       .post(
-        "   http://192.168.0.153/api/interests",
+        "   http://localhost:81/api/interests",
         {
           bank_id: faizVal.bank_id,
           interest: parseFloat(text.interes),
@@ -58,17 +82,23 @@ function İnterests({
       )
       .then((res) => {
         console.log(res);
-
+        getInteres();
         getBanks();
       })
       .catch((err) => {
         console.log(err);
       });
   };
+  
+
+
+
+  console.log(item.id)
+  console.log(faizVal.id)
   const intdelete = () => {
     axios
       .delete(
-        "   http://192.168.0.153/api/interests",
+        "   http://localhost:81/api/interests",
         {
           id: item.id,
           bank_id: faizVal.id,
@@ -87,7 +117,10 @@ function İnterests({
         console.log(err);
       });
   };
-
+  // useEffect(() => {
+  //     getBanks()
+  // }, [token]);
+  
   const [vade, setVade] = useState(
     selectcreditype.type === 1
       ? [
@@ -206,7 +239,7 @@ function İnterests({
             <Button
               type="button"
               color="warning"
-              onClick={() => intdelete(item.id)}
+              onClick={() => intdelete(faizVal.id)}
             >
               Delete
             </Button>

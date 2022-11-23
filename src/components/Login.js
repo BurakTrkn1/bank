@@ -11,11 +11,11 @@ function Login({ value, setToken }) {
   const { handleSubmit, control } = useForm();
   const [status, setStatus] = useState();
   const onSubmitt = (data) => {
-    navigate("/Home");
+   
     console.log(data);
     axios
       .post(
-        " http://192.168.0.153/api/login",
+        " http://localhost:81/api/login",
         {
           username: data.username,
           password: data.password,
@@ -32,6 +32,7 @@ function Login({ value, setToken }) {
           localStorage.setItem("token", response.data.data);
           setToken(response.data.data);
           console.log(response.data.data);
+          navigate("/Home");
         } else {
         }
         console.log(response);
@@ -51,7 +52,7 @@ function Login({ value, setToken }) {
               name="username"
               render={({ field: { onChange, onBlur, value, ref } }) => (
                 <Input
-                  defaultValue={"burak.turken"}
+                  defaultValue={"proxolab"}
                   onChange={onChange}
                   onBlur={onBlur}
                   selected={value}
@@ -67,7 +68,7 @@ function Login({ value, setToken }) {
               render={({ field: { onChange, onBlur, value, ref } }) => (
                 <Input
                   type=""
-                  defaultValue={"as4gbFwsDS@"}
+                  defaultValue={"jas34Qsd56Q03fj3yH@"}
                   onChange={onChange}
                   onBlur={onBlur}
                   selected={value}

@@ -30,13 +30,14 @@ function Acordion({
   console.log(faiz);
   const getBanks = () => {
     axios
-      .get("  http://192.168.0.153/api/banks", {
+      .get("  http://localhost:81/api/banks", {
         headers: {
           Authorization: token,
         },
       })
       .then((res) => {
         setDatas(res.data.data);
+        console.log(res.data.interests)
       })
       .catch((err) => {
         console.log(err);
@@ -44,7 +45,7 @@ function Acordion({
   };
   const banksdelete = (id) => {
     axios
-      .delete("  http://192.168.0.153/api/banks", {
+      .delete("  http://localhost:81/api/banks", {
         headers: {
           Authorization: token,
         },
@@ -133,12 +134,12 @@ function Acordion({
                       setDatas={setDatas}
                       item={item}
                       faizVal={val}
-                      key={ind}
                       setFaiz={setFaiz}
                       faiz={faiz}
                       datas={datas}
                       token={token}
                       bankId={bank.id}
+                      getBanks={getBanks}
                     />
                   );
                 })}
