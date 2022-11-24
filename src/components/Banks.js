@@ -63,7 +63,6 @@ function Banks({
     setModal(true);
     setModalShow(true);
   };
-  //
   return (
     <div>
       <div id="back">

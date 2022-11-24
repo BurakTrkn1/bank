@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Input, Button } from "reactstrap";
 import axios from "axios";
 import "../../src/App.css";
-
+import Calculation from "./Calculation";
 function İnterests({
   item,
   datas,
@@ -19,52 +19,42 @@ function İnterests({
   bankId,
 }) {
   console.log(token);
+  const [calculation, setCalculation] = useState([]);
   const [selectcreditype, setSelectcredittype] = useState(1);
   const [text, setText] = useState({
     interes: "",
     vades: "",
   });
   console.log(token);
-  
+
   console.log(item);
   console.log(item.interests);
 
-  
   console.log(text.vades);
-  useEffect(() => {
-  }, [item.interests]);
+  useEffect(() => {}, [item.interests]);
   const save = () => {
- 
- 
     console.log({
- 
       bank_id: faizVal.bank_id,
       interest: parseFloat(text.interes),
       credit_type: parseInt(selectcreditype),
       time_option: parseInt(text.vades),
     });
-   
-   
-   
-    const getInteres=()=>{
-      axios
-  .get(
-    "   http://localhost:81/api/interests",
-    {
-      headers: {
-        Authorization: token,
-      },
-    }
-  )
-  .then((res) => {
-    console.log(res.data.data);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
 
-    }
-  
+    const getInteres = () => {
+      axios
+        .get("   http://localhost:81/api/interests", {
+          headers: {
+            Authorization: token,
+          },
+        })
+        .then((res) => {
+          console.log(res.data.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+
     axios
       .post(
         "   http://localhost:81/api/interests",
@@ -89,12 +79,9 @@ function İnterests({
         console.log(err);
       });
   };
-  
 
-
-
-  console.log(item.id)
-  console.log(faizVal.id)
+  console.log(item.id);
+  console.log(faizVal.id);
   const intdelete = () => {
     axios
       .delete(
@@ -120,7 +107,7 @@ function İnterests({
   // useEffect(() => {
   //     getBanks()
   // }, [token]);
-  
+
   const [vade, setVade] = useState(
     selectcreditype.type === 1
       ? [
@@ -246,6 +233,10 @@ function İnterests({
           </td>
         </tr>
       </div>
+      {calculation.map((val) => {
+        console.log(val);
+        <Calculation val={val} item={item} />;
+      })}
     </div>
   );
 }
