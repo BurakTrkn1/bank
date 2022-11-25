@@ -58,7 +58,7 @@
   margin: 145px;
 }
 label{
-  color:  whitesmoke;
+  /* color:  whitesmoke; */
 }
 #lgn{
   margin-top: 20px;
@@ -139,7 +139,9 @@ min-height: 789px;
   #modaltitle{
    color: black;
   }
-  
+  #exapmleSelect{
+    width: 50px;
+  }
    
   #creditinst{
     background-image: url("https://c.wallhere.com/photos/0b/d3/psychedelic_deer_blue_Moon_fantasy_art-1320815.jpg!d");
@@ -224,4 +226,10 @@ min-height: 789px;
   }
   #credacor{
     margin-top: 20%;
+  }
+  #loguser{
+   color: antiquewhite;
+  }
+  #logpassword{
+    color: antiquewhite;
   }

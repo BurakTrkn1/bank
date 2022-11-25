@@ -34,13 +34,14 @@ import classnames from "classnames";
 
 import axios from "axios";
 function Calculation({ setError, token, setDatas, datas, item }) {
+  const [interestss, setİnterest] = useState(14);
   const [selectcreditype, setSelectcredittype] = useState(1);
   let [open, setOpen] = useState(1);
   const [find, setFind] = useState([]);
   const [currentActiveTab, setCurrentActiveTab] = useState("1");
-  const [CreditAmount, setCreditAmount] = useState("");
-  const [CreditAmounts, setCreditAmounts] = useState("");
-
+  const [creditAmount, setCreditAmount] = useState("");
+  const [creditAmounts, setCreditAmounts] = useState("");
+  let total = "";
   const [getVades, setGetVades] = useState([]);
 
   const toggle = (tab) => {
@@ -77,7 +78,7 @@ function Calculation({ setError, token, setDatas, datas, item }) {
           }
         });
         console.log(a);
-        setDatas(a);
+        setFind(a);
       })
       .catch((error) => {
         console.log(error);
@@ -113,7 +114,7 @@ function Calculation({ setError, token, setDatas, datas, item }) {
       });
   };
 
-  const [selectVadeType, setselectVadeType] = useState([]);
+  const [selectVadeType, setSelectVadeType] = useState([]);
   const [selectVadeTypeID, setSelectVadeTypeID] = useState();
   const navigate = useNavigate();
   const [key, setKey] = useState("");
@@ -129,10 +130,29 @@ function Calculation({ setError, token, setDatas, datas, item }) {
           { val: "24Ay", key: "4" },
           { val: "36Ay", key: "5" },
         ]
+      : selectcreditype.type === 3
+      ? [
+          { val: "3Ay", key: "1" },
+          { val: "6Ay", key: "2" },
+          { val: "12Ay", key: "3" },
+        ]
       : []
   );
-  const change_tür_Type = (event) => {
-    setselectVadeType(event.target.value);
+  // selectcreditype.type === 1
+  //   ? [
+  //       { val: "5Yıl", key: "6" },
+  //       { val: "10Yıl", key: "7" },
+  //     ]
+  //   : selectcreditype.type === 2
+  //   ? [
+  //       { val: "12Ay", key: "3" },
+  //       { val: "24Ay", key: "4" },
+  //       { val: "36Ay", key: "5" },
+  //     ]
+  //   : []
+
+  const changeselect = (event) => {
+    setSelectVadeType(event.target.value);
     setSelectVadeTypeID(
       event.target.value === "Tüketici"
         ? 2
@@ -142,8 +162,6 @@ function Calculation({ setError, token, setDatas, datas, item }) {
         ? 1
         : 0
     );
-  };
-  const changeselect = (event) => {
     setSelectcredittype(event.target.value);
     console.log(event.target.value);
     setVade(
@@ -161,7 +179,7 @@ function Calculation({ setError, token, setDatas, datas, item }) {
         : []
     );
   };
-
+  console.log(creditAmount);
   return (
     <div id="Depo">
       <div id="Creditinterest">
@@ -184,7 +202,7 @@ function Calculation({ setError, token, setDatas, datas, item }) {
                       toggle("1");
                     }}
                   >
-                    Kredi Faizi
+                    Creditinterest
                   </NavLink>
                 </NavItem>
                 <NavItem>
@@ -196,7 +214,7 @@ function Calculation({ setError, token, setDatas, datas, item }) {
                       toggle("2");
                     }}
                   >
-                    Mevduat Faizi
+                    Depositinterest
                   </NavLink>
                 </NavItem>
               </Nav>
@@ -208,7 +226,7 @@ function Calculation({ setError, token, setDatas, datas, item }) {
                         <thead>
                           <tr>
                             <th>
-                              <Label for="exampleSelect">Tür</Label>
+                              <Label for="exampleSelect"></Label>
                               <Input
                                 type="select"
                                 name="select"
@@ -221,7 +239,7 @@ function Calculation({ setError, token, setDatas, datas, item }) {
                               </Input>
                             </th>
                             <th>
-                              <Label for="exampleSelect">Vade</Label>
+                              <Label for="exampleSelect"></Label>
                               <Input
                                 type="select"
                                 name="select"
@@ -244,23 +262,23 @@ function Calculation({ setError, token, setDatas, datas, item }) {
                                 onChange={(event) =>
                                   setCreditAmount(event.target.value)
                                 }
-                                value={CreditAmount}
+                                value={creditAmount}
                               ></Input>
                             </th>
 
                             <th>
-                              <Button onClick={Findbank}>Bul</Button>
+                              <Button onClick={Findbank}>Find</Button>
                             </th>
                           </tr>
                         </thead>
                       </Table>
                     </Col>
                   </Row>
-                  {datas.map((bank) => {
+                  {find.map((bank) => {
                     return bank.interests.map((c) => {
                       console.log(c);
                       console.log(c.time_option);
-                      console.log(CreditAmount);
+                      console.log(creditAmount);
                       return (
                         <Accordion flush open={open} toggle={openhandler}>
                           <AccordionItem>
@@ -270,16 +288,17 @@ function Calculation({ setError, token, setDatas, datas, item }) {
                             <AccordionBody accordionId={bank.id}>
                               {bank.bank_name}
                               <br />
-                              Yatıralacak Tutar= <label>{CreditAmount}</label>TL
+                              amount to be deposited={" "}
+                              <label>{creditAmount}</label>TL
                               <br />
-                              Toplam Geri Ödeme=
-                              <label>{CreditAmount * c.interest}</label>
+                              total refund =
+                              <label>{creditAmount * c.interest}</label>
                               TL
                               <br />
-                              Aylık Faiz= %<label>{c.interest}</label>
+                              monthly interest= %<label>{c.interest}</label>
                               <br />
-                              Aylık Ödeme=
-                              <label>{CreditAmount * c.interest}</label>
+                              monthly payment=
+                              <label>{creditAmount * c.interest}</label>
                               <br />
                             </AccordionBody>
                           </AccordionItem>
@@ -295,9 +314,12 @@ function Calculation({ setError, token, setDatas, datas, item }) {
                         <thead>
                           <tr>
                             <th>
-                              <Label for="exampleSelect">Vade</Label>
-                              <Input type="select" name="select">
+                              <Label for="exampleSelect"></Label>
+                              <Input
+                                type="select"
+                                name="select"
                                 value={selectcreditype}
+                              >
                                 <option value={3}>3Ay</option>
                                 <option value={6}>6Ay</option>
                                 <option value={12}>12Ay</option>
@@ -310,11 +332,11 @@ function Calculation({ setError, token, setDatas, datas, item }) {
                                 onChange={(event) =>
                                   setCreditAmounts(event.target.value)
                                 }
-                                value={CreditAmounts}
+                                value={creditAmounts}
                               ></Input>
                             </th>
                             <th>
-                              <Button>Bul</Button>
+                              <Button onClick={getVade}>Find</Button>
                             </th>
                           </tr>
                         </thead>
@@ -322,24 +344,23 @@ function Calculation({ setError, token, setDatas, datas, item }) {
                     </Col>
                   </Row>
                   <Accordion flush open={open} toggle={openhandler}>
-                    {datas.map((data) => {
+                    {find.map((data) => {
                       return (
                         <AccordionItem>
                           <AccordionHeader targetId={data.id}>
-                            {data.bank_name}
+                            {data.bank_name} monthly interest ratio {}
                           </AccordionHeader>
                           <AccordionBody accordionId={data.id}>
                             {data.bank_name}
                             <br />
-                            Hesaba Yatırılacak Tutar=
-                            <label>{CreditAmount}</label>
+                            Deposit total=
+                            <label>{creditAmounts}</label>
                             TL
                             <br />
-                            Toplam Geri Ödeme=
+                            monthly interest=
+                            {(total = creditAmount * interestss)}%
                             <br />
-                            Aylık Faiz=%
-                            <br />
-                            Aylık Ödeme=
+                            monthly payment={total}
                             <br />
                           </AccordionBody>
                         </AccordionItem>

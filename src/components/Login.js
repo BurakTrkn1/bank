@@ -11,7 +11,6 @@ function Login({ value, setToken }) {
   const { handleSubmit, control } = useForm();
   const [status, setStatus] = useState();
   const onSubmitt = (data) => {
-   
     console.log(data);
     axios
       .post(
@@ -46,7 +45,7 @@ function Login({ value, setToken }) {
       <div id="login">
         <div id="set">
           <form onSubmit={handleSubmit((data) => onSubmitt(data))}>
-            <Label>Username</Label>
+            <Label id="loguser">Username</Label>
             <Controller
               control={control}
               name="username"
@@ -60,7 +59,7 @@ function Login({ value, setToken }) {
                 />
               )}
             />
-            <Label>Password</Label>
+            <Label id="logpassword">Password</Label>
 
             <Controller
               control={control}

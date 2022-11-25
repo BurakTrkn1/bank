@@ -18,12 +18,12 @@ function İnterests({
   faizVal,
   bankId,
 }) {
-  console.log(token);
+  console.log(faizVal);
   const [calculation, setCalculation] = useState([]);
-  const [selectcreditype, setSelectcredittype] = useState(1);
   const [text, setText] = useState({
-    interes: "",
-    vades: "",
+    interes: faizVal.interest,
+    vades: faizVal.time_option,
+    credit_type: faizVal.credit_type,
   });
   console.log(token);
 
@@ -36,7 +36,7 @@ function İnterests({
     console.log({
       bank_id: faizVal.bank_id,
       interest: parseFloat(text.interes),
-      credit_type: parseInt(selectcreditype),
+      credit_type: parseInt(text.credit_type),
       time_option: parseInt(text.vades),
     });
 
@@ -61,7 +61,7 @@ function İnterests({
         {
           bank_id: faizVal.bank_id,
           interest: parseFloat(text.interes),
-          credit_type: parseInt(selectcreditype),
+          credit_type: parseInt(text.credit_type),
           time_option: parseInt(text.vades),
         },
         {
@@ -109,18 +109,18 @@ function İnterests({
   // }, [token]);
 
   const [vade, setVade] = useState(
-    selectcreditype.type === 1
+    text.credit_type === 1
       ? [
           { val: "5Yıl", key: "6" },
           { val: "10Yıl", key: "7" },
         ]
-      : selectcreditype.type === 2
+      : text.credit_type === 2
       ? [
           { val: "12Ay", key: "3" },
           { val: "24Ay", key: "4" },
           { val: "36Ay", key: "5" },
         ]
-      : selectcreditype.type === 3
+      : text.credit_type === 3
       ? [
           { val: "3Ay", key: "1" },
           { val: "6Ay", key: "2" },
@@ -129,13 +129,15 @@ function İnterests({
       : []
   );
   const changeselect = (event) => {
-    setSelectcredittype(
-      event.target.value === "Konut"
-        ? 1
-        : event.target.value === "Tüketici"
-        ? 2
-        : 3
-    );
+    setText((prev) => ({
+      ...prev,
+      credit_type:
+        event.target.value === "Konut"
+          ? 1
+          : event.target.value === "Tüketici"
+          ? 2
+          : 3,
+    }));
     console.log(event.target.value);
     setVade(
       event.target.value === "Konut"
@@ -169,12 +171,13 @@ function İnterests({
               type="select"
               name="select"
               id="exampleSelect"
+              defaultValue={text.credit_type}
               onChange={(event) => changeselect(event)}
             >
               <option value="Tür seç">Tür seç</option>
-              <option id="1">Konut</option>
-              <option id="2">Tüketici</option>
-              <option id="3">Mevduat</option>
+              <option value="1">Konut</option>
+              <option value="2">Tüketici</option>
+              <option value="3">Mevduat</option>
             </Input>
           </td>
           <td>
@@ -233,10 +236,10 @@ function İnterests({
           </td>
         </tr>
       </div>
-      {calculation.map((val) => {
+      {/* {calculation.map((val) => {
         console.log(val);
         <Calculation val={val} item={item} />;
-      })}
+      })} */}
     </div>
   );
 }

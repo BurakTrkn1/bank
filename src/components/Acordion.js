@@ -37,7 +37,7 @@ function Acordion({
       })
       .then((res) => {
         setDatas(res.data.data);
-        console.log(res.data.interests)
+        console.log(res.data.interests);
       })
       .catch((err) => {
         console.log(err);
@@ -83,8 +83,8 @@ function Acordion({
         id: null,
         bank_id: item.id,
         interest: "",
-        time_option: 0,
-        credit_type: 0,
+        time_option: "",
+        credit_type: "",
       },
     ]);
   };
